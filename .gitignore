@@ -8,10 +8,11 @@ ios/Pods/
 .gradle/
 .cxx/
 .transforms/
-*.apk
+
 *.aab
 __pycache__/
 cmdline-tools/
 .jdk/
 jdk/
 .dart_tool/
+
