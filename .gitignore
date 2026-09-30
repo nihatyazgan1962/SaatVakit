@@ -1,0 +1,17 @@
+﻿
+# Yoksayilacak buyuk dosya ve klasorler
+node_modules/
+.expo/
+build/
+dist/
+ios/Pods/
+.gradle/
+.cxx/
+.transforms/
+*.apk
+*.aab
+__pycache__/
+cmdline-tools/
+.jdk/
+jdk/
+.dart_tool/

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#04060b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Lüks Görsel Analog & Büyük Dijital Saat ve Diyanet Aylık Namaz Vakitleri Uygulaması - Nihat Yazgan" />
+    <title>Namaz Vakti & Saat - Nihat Yazgan</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- Minimalist Elegant Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">SAAT & VAKİT</div>
+        </div>
+      </div>
+
+      <!-- City Badge -->
+      <div class="header-location-badge" id="btn-header-location" title="Şehir Değiştir">
+        <span>📍</span>
+        <span id="txt-header-city">İstanbul</span>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Settings Button -->
+        <button class="btn-icon" id="btn-open-settings" title="Ayarlar & Ses Seçimi" aria-label="Ayarlar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container: Centered Master Circular Watch Face with Top Weather & Bottom TRT Radio -->
+    <main class="master-clock-main">
+      <div class="clock-page-layout">
+        
+        <!-- TOP: HAVA DURUMU BİLGİ KARTI (Dokunarak yenilenir / detay görünür) -->
+        <div id="weather-banner" class="weather-banner-card" style="cursor: pointer;" title="Hava durumunu güncellemek için dokunun">
+          <div class="weather-icon-temp">
+            <span id="weather-icon" style="font-size: 1.5rem;">⛅</span>
+            <span id="weather-temp" style="font-family: var(--font-digital); font-size: 1.25rem; font-weight: 800; color: #00e5ff;">--°C</span>
+          </div>
+          <div class="weather-desc-box">
+            <span id="weather-city-name" style="font-weight: 800; color: #fff6cc; font-size: 0.9rem;">İstanbul</span>
+            <span id="weather-condition" style="font-size: 0.78rem; color: #a1b0cb;">Hava Durumu Alınıyor...</span>
+          </div>
+          <div class="weather-wind" id="weather-wind">
+            <span>💨 12 km/s</span>
+          </div>
+        </div>
+
+        <!-- CENTER: MASTER CLOCK -->
+        <div id="master-clock-mount" class="master-clock-container"></div>
+
+        <!-- BOTTOM: RADYOM MİNİ CANLI RADYO ÇALARI -->
+        <div id="mini-radio-widget" class="mini-radio-card">
+          <!-- Sol Kısım: REC Butonu (Başta) ve Radyo Bilgisi -->
+          <div class="mini-radio-left">
+            <button id="btn-radio-record" class="btn-mini-record-head" title="Canlı Yayını Kaydet (REC)" aria-label="Kaydet">
+              <span class="rec-indicator-dot"></span>
+              <span id="mini-rec-label" class="rec-label">REC</span>
+            </button>
+            <div class="mini-radio-info" id="btn-open-radio-channels" title="Kanal Listesini Aç">
+              <div class="mini-radio-head">
+                <span class="mini-radio-tag">RADYOM</span>
+                <span class="mini-radio-category" id="mini-radio-category">Diyanet</span>
+              </div>
+              <div class="mini-radio-title" id="mini-radio-name">Diyanet Radyo</div>
+              <div class="mini-radio-status" id="mini-radio-status">Seçmek için dokunun ▾</div>
+            </div>
+          </div>
+
+          <!-- Sağ Kısım: Kontrol Butonları -->
+          <div class="mini-radio-controls">
+            <button id="btn-radio-prev" class="btn-mini-control" title="Önceki Kanal" aria-label="Önceki">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            </button>
+            <button id="btn-radio-play-pause" class="btn-mini-play" title="Oynat / Durdur" aria-label="Oynat">
+              <span id="mini-play-icon">▶</span>
+            </button>
+            <button id="btn-radio-next" class="btn-mini-control" title="Sonraki Kanal" aria-label="Sonraki">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+            </button>
+            <button id="btn-radio-list" class="btn-mini-list" title="Tüm Kanallar ve Kategoriler" aria-label="Kanallar">
+              <span>📋</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Modals Mounts -->
+    <div id="radio-modal-mount"></div>
+    <div id="monthly-modal-mount"></div>
+    <div id="settings-modal-mount"></div>
+    <div id="alarm-modal-mount"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

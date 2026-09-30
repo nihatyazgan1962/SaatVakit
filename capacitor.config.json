@@ -1,0 +1,9 @@
+{
+  "appId": "com.saatvakit.app",
+  "appName": "SaatVakit Lüks",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}
