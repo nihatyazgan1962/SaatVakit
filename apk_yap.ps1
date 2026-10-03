@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 Write-Host "=========================================" -ForegroundColor Yellow
 Write-Host "   SAAT VAKIT APK OLUSTURUCU BASLADI   " -ForegroundColor Yellow
@@ -8,20 +8,9 @@ $rootDir = $PSScriptRoot
 $androidDir = Join-Path $rootDir "android"
 $wwwDir = Join-Path $rootDir "www"
 
-# 1. Web dosyalarını www klasörüne kopyala
-Write-Host "
-[1/4] Web dosyalari guncelleniyor (www klasorune kopyalaniyor)..." -ForegroundColor Cyan
-if (-not (Test-Path $wwwDir)) {
-    New-Item -ItemType Directory -Path $wwwDir -Force | Out-Null
-}
-
-$filesToCopy = @("index.html", "app.js", "style.css", "favicon.png")
-foreach ($file in $filesToCopy) {
-    $src = Join-Path $rootDir $file
-    if (Test-Path $src) {
-        Copy-Item -Path $src -Destination (Join-Path $wwwDir $file) -Force
-    }
-}
+# 1. Web dosyalarını Vite ile derle
+Write-Host "`n[1/4] Web projesi derleniyor (npm run build)..." -ForegroundColor Cyan
+npm run build
 
 # 2. Android SDK ve Ortam Değişkenlerini Ayarla
 Write-Host "[2/4] Ortam degiskenleri ve Android SDK kontrol ediliyor..." -ForegroundColor Cyan
@@ -55,25 +44,21 @@ Set-Location $androidDir
 if ($LASTEXITCODE -eq 0) {
     $apk = Get-ChildItem -Path "$androidDir\app\build\outputs\apk\debug\" -Filter '*.apk' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($apk) {
-        $targetApk = Join-Path $rootDir "SaatVakit.apk"
-        Copy-Item -Path $apk.FullName -Destination $targetApk -Force
-        $sizeMB = [math]::Round((Get-Item $targetApk).Length / 1MB, 2)
+        $targetApk1 = Join-Path $rootDir "SaatVeNamazVakti.apk"
+        $targetApk2 = Join-Path $rootDir "SaatVakit.apk"
+        Copy-Item -Path $apk.FullName -Destination $targetApk1 -Force
+        Copy-Item -Path $apk.FullName -Destination $targetApk2 -Force
+        $sizeMB = [math]::Round((Get-Item $targetApk1).Length / 1MB, 2)
         
-        Write-Host "
-========================================================" -ForegroundColor Green
-        Write-Host "  TEBRIKLER! APK BASARIYLA OLUSTURULDU: SaatVakit.apk   " -ForegroundColor Green
-        Write-Host "  Konum: $targetApk ($sizeMB MB)                        " -ForegroundColor Green
-        Write-Host "========================================================
-" -ForegroundColor Green
+        Write-Host "`n========================================================" -ForegroundColor Green
+        Write-Host "  TEBRIKLER! APK BASARIYLA OLUSTURULDU: SaatVeNamazVakti.apk" -ForegroundColor Green
+        Write-Host "  Konum: $targetApk1 ($sizeMB MB)" -ForegroundColor Green
+        Write-Host "========================================================`n" -ForegroundColor Green
     } else {
-        Write-Host "
-HATA: APK dosyasi ciktisi bulunamadi." -ForegroundColor Red
+        Write-Host "`nHATA: APK dosyasi ciktisi bulunamadi." -ForegroundColor Red
     }
 } else {
-    Write-Host "
-HATA: Gradle derlemesi basarisiz oldu. Exit code: $LASTEXITCODE" -ForegroundColor Red
+    Write-Host "`nHATA: Gradle derlemesi basarisiz oldu. Exit code: $LASTEXITCODE" -ForegroundColor Red
 }
 
 Set-Location $rootDir
-Write-Host "Cikmak icin ENTER tusuna basin..." -ForegroundColor Yellow
-Read-Host

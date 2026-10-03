@@ -118,55 +118,61 @@ export class AnalogClock {
           <!-- Arabic Numbers (1 to 12) with 3D embossed gold style -->
           <g id="dial-arabic-numbers" font-family="'Outfit', sans-serif" font-weight="900" font-size="21" fill="url(#luxGoldGrad)" text-anchor="middle" dominant-baseline="central" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.8))"></g>
 
-          <!-- TOP DIGITAL COMPLICATION: LUXURY HUD DISPLAY -->
-          <g id="top-digital-area" transform="translate(250, 134)">
+          <!-- TOP DIGITAL COMPLICATION: LUXURY HUD DISPLAY (KOMPAKT & FERAH) -->
+          <g id="top-digital-area" transform="translate(250, 132)">
             <!-- Date & City Subtext -->
-            <text id="svg-date-text" x="0" y="-37" font-family="'Outfit', sans-serif" font-weight="700" font-size="11.5" fill="#e2ba7e" text-anchor="middle" letter-spacing="1.2">📅 YÜKLENİYOR...</text>
+            <text id="svg-date-text" x="0" y="-33" font-family="'Outfit', sans-serif" font-weight="700" font-size="11" fill="#e2ba7e" text-anchor="middle" letter-spacing="1">📅 YÜKLENİYOR...</text>
 
             <!-- Digital Display Chassis Pill with Glassmorphism -->
-            <rect x="-138" y="-23" width="276" height="52" rx="16" fill="rgba(4, 7, 14, 0.88)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 8px 20px rgba(0,0,0,0.9))" />
-            <rect x="-135" y="-20" width="270" height="46" rx="13" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+            <rect x="-118" y="-23" width="236" height="46" rx="14" fill="rgba(4, 7, 14, 0.88)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 6px 16px rgba(0,0,0,0.85))" />
+            <rect x="-115" y="-20" width="230" height="40" rx="11" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
 
             <!-- Luxury Chrono Icon -->
-            <text x="-114" y="9" font-size="19" text-anchor="middle">⏱️</text>
+            <text x="-96" y="8" font-size="17" text-anchor="middle">⏱️</text>
 
             <!-- HIGH-CONTRAST NEON DIGITAL TIME (Saat, Dk, Sn) -->
-            <text x="-63" y="11" font-family="'Orbitron', monospace" font-weight="900" font-size="28" fill="var(--color-hour, #00e5ff)" text-anchor="middle" id="svg-hour" filter="drop-shadow(0 0 8px rgba(0,229,255,0.4))">00</text>
-            <text x="-31" y="8" font-family="'Orbitron', monospace" font-weight="700" font-size="22" fill="rgba(255,255,255,0.7)" text-anchor="middle">:</text>
+            <text x="-52" y="9" font-family="'Orbitron', monospace" font-weight="900" font-size="25" fill="var(--color-hour, #00e5ff)" text-anchor="middle" id="svg-hour" filter="drop-shadow(0 0 8px rgba(0,229,255,0.4))">00</text>
+            <text x="-24" y="7" font-family="'Orbitron', monospace" font-weight="700" font-size="20" fill="rgba(255,255,255,0.7)" text-anchor="middle">:</text>
             
-            <text x="3" y="11" font-family="'Orbitron', monospace" font-weight="900" font-size="28" fill="var(--color-minute, #00ff9d)" text-anchor="middle" id="svg-minute" filter="drop-shadow(0 0 8px rgba(0,255,157,0.4))">00</text>
-            <text x="37" y="8" font-family="'Orbitron', monospace" font-weight="700" font-size="22" fill="rgba(255,255,255,0.7)" text-anchor="middle">:</text>
+            <text x="6" y="9" font-family="'Orbitron', monospace" font-weight="900" font-size="25" fill="var(--color-minute, #00ff9d)" text-anchor="middle" id="svg-minute" filter="drop-shadow(0 0 8px rgba(0,255,157,0.4))">00</text>
+            <text x="36" y="7" font-family="'Orbitron', monospace" font-weight="700" font-size="20" fill="rgba(255,255,255,0.7)" text-anchor="middle">:</text>
             
-            <text x="72" y="11" font-family="'Orbitron', monospace" font-weight="900" font-size="23" fill="var(--color-second, #ff4081)" text-anchor="middle" id="svg-second" filter="drop-shadow(0 0 8px rgba(255,64,129,0.4))">00</text>
+            <text x="68" y="9" font-family="'Orbitron', monospace" font-weight="900" font-size="21" fill="var(--color-second, #ff4081)" text-anchor="middle" id="svg-second" filter="drop-shadow(0 0 8px rgba(255,64,129,0.4))">00</text>
           </g>
 
-          <!-- 6 LUXURY PRAYER COMPARTMENTS (KADRAN İÇİ VAKİT BÖLÜMLERİ - YANIP SÖNER) -->
+          <!-- 6 LUXURY PRAYER COMPARTMENTS (KADRAN İÇİ VAKİT BÖLÜMLERİ) -->
           <g id="dial-prayers-group"></g>
 
-          <!-- NEXT PRAYER COUNTDOWN PILL (Chrono Sub-dial - Pulsing) -->
-          <g id="next-prayer-subdial" transform="translate(250, 318)" class="approaching-prayer-pulse">
-            <rect x="-115" y="-14" width="230" height="28" rx="14" fill="rgba(223, 175, 82, 0.22)" stroke="url(#luxGoldGrad)" stroke-width="1.4" filter="drop-shadow(0 4px 12px rgba(223, 175, 82, 0.5))" />
-            <text id="svg-next-prayer-info" x="0" y="4" font-family="'Outfit', sans-serif" font-weight="800" font-size="11.5" fill="#fff6cc" text-anchor="middle" letter-spacing="0.6">🕌 Vakitler Yükleniyor...</text>
+          <!-- NEXT PRAYER COUNTDOWN PILL (Öğle ve Yatsı arasına tam sığacak zarif kompakt pill - SABİT IŞIK, DİK YAZI) -->
+          <g id="next-prayer-subdial" transform="translate(250, 324)">
+            <rect x="-59" y="-23" width="118" height="46" rx="12" fill="rgba(6, 10, 18, 0.92)" stroke="url(#luxGoldGrad)" stroke-width="1.4" filter="drop-shadow(0 4px 10px rgba(0,0,0,0.8))" />
+            <rect x="-56" y="-20" width="112" height="40" rx="9" fill="none" stroke="rgba(255, 215, 0, 0.3)" stroke-width="1" />
+            
+            <!-- ÜSTTE: SIRADA İKİNDİ (veya ilgili vakit) - Sarı, DİK YAZI -->
+            <text id="svg-next-prayer-name" x="0" y="-6" font-family="'Outfit', sans-serif" font-weight="900" font-style="normal" font-size="9.5" fill="#ffe600" text-anchor="middle" letter-spacing="0.5">⏳ SIRADA: VAKİT</text>
+            
+            <!-- ALTTA: KALAN SÜRE - Sarı, DİK YAZI -->
+            <text id="svg-next-prayer-remaining" x="0" y="11" font-family="'Orbitron', monospace" font-weight="900" font-style="normal" font-size="11" fill="#ffd700" text-anchor="middle" letter-spacing="0.6">KALAN: 00:00:00</text>
           </g>
 
-          <!-- BOTTOM CONTROLS AREA (DİYANET VAKİTLERİ YAZISI YERİNE SAATİ SÖYLE, İMSAKİYE, TAM EKRAN BUTONLARI) -->
-          <g id="dial-bottom-actions" transform="translate(250, 395)">
+          <!-- BOTTOM CONTROLS AREA (SAATİ SÖYLE, İMSAKİYE, TAM EKRAN BUTONLARI) -->
+          <g id="dial-bottom-actions" transform="translate(250, 396)">
             <!-- 1. Speak Time Button (Sol) -->
-            <g id="btn-dial-speak" style="cursor: pointer;" transform="translate(-56, 0)">
-              <circle cx="0" cy="0" r="16" fill="rgba(14, 20, 34, 0.9)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.8))" />
-              <text x="0" y="5" font-size="14" text-anchor="middle">🔊</text>
+            <g id="btn-dial-speak" style="cursor: pointer;" transform="translate(-48, 0)">
+              <circle cx="0" cy="0" r="14.5" fill="rgba(12, 18, 30, 0.92)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 3px 6px rgba(0,0,0,0.8))" />
+              <text x="0" y="4.5" font-size="12.5" text-anchor="middle">🔊</text>
             </g>
 
             <!-- 2. Monthly Calendar Button (Orta) -->
             <g id="btn-dial-monthly" style="cursor: pointer;" transform="translate(0, 0)">
-              <circle cx="0" cy="0" r="16" fill="rgba(14, 20, 34, 0.9)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.8))" />
-              <text x="0" y="5" font-size="14" text-anchor="middle">📅</text>
+              <circle cx="0" cy="0" r="14.5" fill="rgba(12, 18, 30, 0.92)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 3px 6px rgba(0,0,0,0.8))" />
+              <text x="0" y="4.5" font-size="12.5" text-anchor="middle">📅</text>
             </g>
 
             <!-- 3. Fullscreen Button (Sağ) -->
-            <g id="btn-dial-fullscreen" style="cursor: pointer;" transform="translate(56, 0)">
-              <circle cx="0" cy="0" r="16" fill="rgba(14, 20, 34, 0.9)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.8))" />
-              <text x="0" y="5" font-size="14" text-anchor="middle">⛶</text>
+            <g id="btn-dial-fullscreen" style="cursor: pointer;" transform="translate(48, 0)">
+              <circle cx="0" cy="0" r="14.5" fill="rgba(12, 18, 30, 0.92)" stroke="url(#luxGoldGrad)" stroke-width="1.2" filter="drop-shadow(0 3px 6px rgba(0,0,0,0.8))" />
+              <text x="0" y="4.5" font-size="12.5" text-anchor="middle">⛶</text>
             </g>
           </g>
 
@@ -175,16 +181,16 @@ export class AnalogClock {
 
           <!-- HIGH PRECISION TIMEPIECE HANDS -->
           <g id="master-hands-group">
-            <!-- Hour Hand -->
+            <!-- Hour Hand (Akrep) -->
             <g id="hand-hour-group">
-              <polygon points="245,268 243,165 250,146 257,165 255,268" fill="url(#luxGoldGrad)" filter="drop-shadow(0 6px 12px rgba(0,0,0,0.8))" />
+              <polygon points="245,268 243,165 250,146 257,165 255,268" fill="url(#luxGoldGrad)" stroke="#050811" stroke-width="1.2" filter="drop-shadow(0 6px 12px rgba(0,0,0,0.95))" />
               <line x1="250" y1="262" x2="250" y2="155" stroke="var(--color-hour, #00e5ff)" stroke-width="3.5" stroke-linecap="round" filter="url(#glowHandH)" />
               <line x1="250" y1="262" x2="250" y2="158" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" />
             </g>
             
-            <!-- Minute Hand -->
+            <!-- Minute Hand (Yelkovan) -->
             <g id="hand-min-group">
-              <polygon points="246,278 245,108 250,86 255,108 254,278" fill="url(#luxGoldGrad)" filter="drop-shadow(0 6px 12px rgba(0,0,0,0.8))" />
+              <polygon points="246,278 245,108 250,86 255,108 254,278" fill="url(#luxGoldGrad)" stroke="#050811" stroke-width="1.2" filter="drop-shadow(0 6px 12px rgba(0,0,0,0.95))" />
               <line x1="250" y1="272" x2="250" y2="94" stroke="var(--color-minute, #00ff9d)" stroke-width="3" stroke-linecap="round" filter="url(#glowHandM)" />
               <line x1="250" y1="272" x2="250" y2="97" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" />
             </g>
@@ -289,17 +295,17 @@ export class AnalogClock {
     }
     this.lastRenderedState = stateKey;
 
-    // 6 Prayers list with times & positions
+    // 6 Prayers list with optimized positions (Rakamlara ve kollarla mesafeli, ferah düzen)
     const prayerSlots = [
-      { key: 'imsak', label: 'İMSAK', time: this.timings.imsak, x: 118, y: 220, icon: '🌙' },
-      { key: 'gunes', label: 'GÜNEŞ', time: this.timings.gunes, x: 96, y: 275, icon: '🌅' },
-      { key: 'ogle', label: 'ÖĞLE', time: this.timings.ogle, x: 118, y: 332, icon: '☀️' },
-      { key: 'ikindi', label: 'İKİNDİ', time: this.timings.ikindi, x: 382, y: 220, icon: '🌤️' },
-      { key: 'aksam', label: 'AKŞAM', time: this.timings.aksam, x: 404, y: 275, icon: '🌇' },
-      { key: 'yatsi', label: 'YATSI', time: this.timings.yatsi, x: 382, y: 332, icon: '✨' }
+      { key: 'imsak', label: 'İMSAK', time: this.timings.imsak, x: 124, y: 216, icon: '🌙' },
+      { key: 'gunes', label: 'GÜNEŞ', time: this.timings.gunes, x: 108, y: 268, icon: '🌅' },
+      { key: 'ogle', label: 'ÖĞLE', time: this.timings.ogle, x: 124, y: 320, icon: '☀️' },
+      { key: 'ikindi', label: 'İKİNDİ', time: this.timings.ikindi, x: 376, y: 216, icon: '🌤️' },
+      { key: 'aksam', label: 'AKŞAM', time: this.timings.aksam, x: 392, y: 268, icon: '🌇' },
+      { key: 'yatsi', label: 'YATSI', time: this.timings.yatsi, x: 376, y: 320, icon: '✨' }
     ];
 
-    // RENDER 6 PRAYER BADGES WITH ONLY NEXT PRAYER SLOWLY PULSING (10s)
+    // RENDER 6 PRAYER BADGES WITH REFINED GLASSMORPHIC CARDS
     let prayersHtml = '';
     prayerSlots.forEach(p => {
       const isActive = p.key === currentKey;
@@ -307,25 +313,25 @@ export class AnalogClock {
 
       // Sadece ve sadece sıradaki yaklaşan vakit yanıp söner
       const blinkClass = isNext ? 'approaching-prayer-blink' : '';
-      const cardFill = isNext ? 'rgba(255, 215, 0, 0.28)' : (isActive ? 'rgba(0, 229, 255, 0.18)' : 'rgba(10, 16, 29, 0.7)');
-      const cardStroke = isNext ? '#ffd700' : (isActive ? '#00e5ff' : 'rgba(255, 255, 255, 0.12)');
+      const cardFill = isNext ? 'rgba(255, 215, 0, 0.22)' : (isActive ? 'rgba(0, 229, 255, 0.16)' : 'rgba(8, 14, 26, 0.76)');
+      const cardStroke = isNext ? '#ffd700' : (isActive ? '#00e5ff' : 'rgba(255, 255, 255, 0.14)');
       const textFill = isNext ? '#ffffff' : (isActive ? '#00e5ff' : '#ffffff');
       const labelFill = isNext ? '#ffd700' : (isActive ? '#00e5ff' : '#94a3b8');
 
       prayersHtml += `
         <g transform="translate(${p.x}, ${p.y})" class="${blinkClass}">
           <!-- Glowing Outer Aura for Approaching Prayer Only -->
-          ${isNext ? `<rect x="-48" y="-24" width="96" height="48" rx="15" fill="none" stroke="#ffd700" stroke-width="2" class="prayer-aura-pulse" />` : ''}
+          ${isNext ? `<rect x="-41" y="-20" width="82" height="40" rx="12" fill="none" stroke="#ffd700" stroke-width="1.8" class="prayer-aura-pulse" />` : ''}
 
           <!-- Main Prayer Badge Card -->
-          <rect x="-44" y="-20" width="88" height="40" rx="12" fill="${cardFill}" stroke="${cardStroke}" stroke-width="${isNext ? '2.5' : (isActive ? '1.8' : '1')}" />
-          ${isActive || isNext ? `<rect x="-42" y="-18" width="84" height="36" rx="10" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" />` : ''}
+          <rect x="-38" y="-17" width="76" height="34" rx="10" fill="${cardFill}" stroke="${cardStroke}" stroke-width="${isNext ? '2' : (isActive ? '1.6' : '1')}" filter="drop-shadow(0 3px 8px rgba(0,0,0,0.7))" />
+          ${isActive || isNext ? `<rect x="-36" y="-15" width="72" height="30" rx="8" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" />` : ''}
           
           <!-- Approaching indicator beacon icon -->
-          ${isNext ? `<circle cx="-32" cy="-10" r="3.5" fill="#00ff9d" class="beacon-pulse" />` : ''}
+          ${isNext ? `<circle cx="-27" cy="-7" r="2.8" fill="#00ff9d" class="beacon-pulse" />` : ''}
 
-          <text x="0" y="-6" font-family="'Outfit', sans-serif" font-weight="900" font-size="10" fill="${labelFill}" text-anchor="middle" letter-spacing="0.8">${p.icon} ${p.label}</text>
-          <text x="0" y="11" font-family="'Orbitron', monospace" font-weight="900" font-size="13" fill="${textFill}" text-anchor="middle">${p.time}</text>
+          <text x="0" y="-4" font-family="'Outfit', sans-serif" font-weight="900" font-size="9" fill="${labelFill}" text-anchor="middle" letter-spacing="0.6">${p.icon} ${p.label}</text>
+          <text x="0" y="10" font-family="'Orbitron', monospace" font-weight="900" font-size="11.5" fill="${textFill}" text-anchor="middle">${p.time}</text>
         </g>
       `;
     });
@@ -334,12 +340,23 @@ export class AnalogClock {
   }
 
   updateNextCountdown() {
-    const nextInfoEl = this.container.querySelector('#svg-next-prayer-info');
-    if (!nextInfoEl || !this.status) return;
+    const nextNameEl = this.container.querySelector('#svg-next-prayer-name');
+    const nextRemEl = this.container.querySelector('#svg-next-prayer-remaining');
+    const legacyEl = this.container.querySelector('#svg-next-prayer-info');
+    if (!this.status) return;
 
     const nextP = this.status.nextPrayer;
     const remaining = this.status.remainingFormatted;
-    nextInfoEl.textContent = `⏳ Sırada: ${nextP.name} (${nextP.time}) • Kalan: ${remaining}`;
+
+    if (nextNameEl) {
+      nextNameEl.textContent = `⏳ SIRADA: ${nextP.name.toUpperCase()} (${nextP.time})`;
+    }
+    if (nextRemEl) {
+      nextRemEl.textContent = `KALAN: ${remaining}`;
+    }
+    if (legacyEl && !nextNameEl) {
+      legacyEl.textContent = `⏳ SIRADA: ${nextP.name.toUpperCase()} (${nextP.time}) • KALAN: ${remaining}`;
+    }
   }
 
   initClockLoop() {

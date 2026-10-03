@@ -180,9 +180,185 @@ export class PrayerService {
       'sivas': { id: 9825, slug: 'sivas-icin-namaz-vakti' }
     };
 
-    const targetKey = (city.districtId || city.id || city.cityId || 'istanbul').toLowerCase();
-    const found = dMap[targetKey] || dMap[city.cityId] || dMap['istanbul'];
+    const targetKey = (city.districtId || city.id || city.cityId || 'istanbul-esenyurt').toLowerCase();
+    const found = dMap[targetKey] || dMap[city.cityId] || dMap['istanbul-esenyurt'] || dMap['istanbul'];
     return found;
+  }
+
+  // Get Diyanet Haber URL slug for city/district
+  getDiyanetHaberSlug(city) {
+    const slugMap = {
+      'istanbul-esenyurt': 'istanbul-esenyurt-namaz-vakitleri',
+      'istanbul-arnavutkoy': 'istanbul-arnavutkoy-namaz-vakitleri',
+      'istanbul-avcilar': 'istanbul-avcilar-namaz-vakitleri',
+      'istanbul-basaksehir': 'istanbul-basaksehir-namaz-vakitleri',
+      'istanbul-beylikduzu': 'istanbul-beylikduzu-namaz-vakitleri',
+      'istanbul-buyukcekmece': 'istanbul-buyukcekmece-namaz-vakitleri',
+      'istanbul-catalca': 'istanbul-catalca-namaz-vakitleri',
+      'istanbul-cekmekoy': 'istanbul-cekmekoy-namaz-vakitleri',
+      'istanbul-kartal': 'istanbul-kartal-namaz-vakitleri',
+      'istanbul-kucukcekmece': 'istanbul-kucukcekmece-namaz-vakitleri',
+      'istanbul-maltepe': 'istanbul-maltepe-namaz-vakitleri',
+      'istanbul-pendik': 'istanbul-pendik-namaz-vakitleri',
+      'istanbul-sancaktepe': 'istanbul-sancaktepe-namaz-vakitleri',
+      'istanbul-sile': 'istanbul-sile-namaz-vakitleri',
+      'istanbul-silivri': 'istanbul-silivri-namaz-vakitleri',
+      'istanbul-sultanbeyli': 'istanbul-sultanbeyli-namaz-vakitleri',
+      'istanbul-sultangazi': 'istanbul-sultangazi-namaz-vakitleri',
+      'istanbul-tuzla': 'istanbul-tuzla-namaz-vakitleri',
+      'istanbul': 'istanbul-namaz-vakitleri',
+      'ankara': 'ankara-namaz-vakitleri',
+      'izmir': 'izmir-namaz-vakitleri',
+      'bursa': 'bursa-namaz-vakitleri',
+      'antalya': 'antalya-namaz-vakitleri',
+      'adana': 'adana-namaz-vakitleri',
+      'konya': 'konya-namaz-vakitleri',
+      'gaziantep': 'gaziantep-namaz-vakitleri',
+      'sanliurfa': 'sanliurfa-namaz-vakitleri'
+    };
+
+    const targetKey = (city.districtId || city.id || city.cityId || 'istanbul-esenyurt').toLowerCase();
+    return slugMap[targetKey] || `${targetKey.replace(/_/g, '-')}-namaz-vakitleri`;
+  }
+
+  // 1. ÖNCELİKLİ KAYNAK: https://www.diyanethaber.com.tr/istanbul-esenyurt-namaz-vakitleri
+  async fetchFromDiyanetHaber(city) {
+    const slug = this.getDiyanetHaberSlug(city);
+    const primaryUrl = `https://www.diyanethaber.com.tr/${slug}`;
+    const proxyUrls = [
+      primaryUrl,
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(primaryUrl)}`,
+      `https://corsproxy.io/?${encodeURIComponent(primaryUrl)}`
+    ];
+
+    let html = null;
+    for (const url of proxyUrls) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+          const txt = await res.text();
+          if (txt && (txt.includes('time-box') || txt.includes('diyanethaber'))) {
+            html = txt;
+            break;
+          }
+        }
+      } catch (err) {
+        // try next proxy
+      }
+    }
+
+    if (!html) throw new Error('Diyanethaber içeriği alınamadı');
+
+    const monthlyBuckets = {};
+    const trMonths = {
+      'ocak': 1, 'oca': 1, 'subat': 2, 'şubat': 2, 'sub': 2, 'şub': 2,
+      'mart': 3, 'mar': 3, 'nisan': 4, 'nis': 4, 'mayis': 5, 'mayıs': 5, 'may': 5,
+      'haziran': 6, 'haz': 6, 'temmuz': 7, 'tem': 7, 'agustos': 8, 'ağustos': 8, 'agu': 8, 'ağu': 8,
+      'eylul': 9, 'eylül': 9, 'eyl': 9, 'ekim': 10, 'eki': 10,
+      'kasim': 11, 'kasım': 11, 'kas': 11, 'aralik': 12, 'aralık': 12, 'ara': 12
+    };
+
+    const currentYear = new Date().getFullYear();
+
+    // Parse Hadith & Hijri Date
+    const hadithMatch = html.match(/class="hadith[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+    if (hadithMatch) {
+      const hadithTxt = hadithMatch[1].replace(/<[^>]+>/g, '').trim();
+      localStorage.setItem('saatvakit_daily_hadith', hadithTxt);
+    }
+    const hijriMatch = html.match(/<span class="text-success">([^<]+)<\/span>/i);
+    if (hijriMatch) {
+      localStorage.setItem('saatvakit_hijri_date', hijriMatch[1].trim());
+    }
+
+    // Parse Monthly Table
+    const rows = html.match(/<tr[^>]*>[\s\S]*?<\/tr>/gi) || [];
+    for (const row of rows) {
+      const tds = row.match(/<td[^>]*>[\s\S]*?<\/td>/gi);
+      if (tds && tds.length >= 8) {
+        const clean = tds.map(td => td.replace(/<[^>]+>/g, '').trim());
+        const dateParts = clean[0].split(/\s+/);
+        if (dateParts.length >= 2) {
+          const day = parseInt(dateParts[0], 10);
+          const mKey = dateParts[1].toLocaleLowerCase('tr-TR').replace(/[^a-zçğıöşü]/g, '');
+          const month = trMonths[mKey];
+          if (day && month) {
+            const weekday = dateParts[2] || '';
+            const hijri = clean[1];
+            const bucketKey = `${currentYear}-${month}`;
+            if (!monthlyBuckets[bucketKey]) monthlyBuckets[bucketKey] = [];
+
+            const exists = monthlyBuckets[bucketKey].some(item => parseInt(item.date.gregorian.day, 10) === day);
+            if (!exists) {
+              monthlyBuckets[bucketKey].push({
+                date: {
+                  readable: `${day.toString().padStart(2, '0')} ${dateParts[1]} ${currentYear}`,
+                  timestamp: new Date(currentYear, month - 1, day).getTime().toString(),
+                  hijri: hijri,
+                  gregorian: {
+                    day: day.toString().padStart(2, '0'),
+                    month: { number: month },
+                    year: currentYear.toString(),
+                    weekday: { en: weekday }
+                  }
+                },
+                timings: {
+                  Imsak: clean[2],
+                  Fajr: clean[2],
+                  Sunrise: clean[3],
+                  Dhuhr: clean[4],
+                  Asr: clean[5],
+                  Sunset: clean[6],
+                  Maghrib: clean[6],
+                  Isha: clean[7]
+                }
+              });
+            }
+          }
+        }
+      }
+    }
+
+    // Parse Today's Exact Box if present
+    const timeBoxMatches = [...html.matchAll(/<h4 class="text-uppercase">\s*([^<]+)\s*<\/h4>\s*<div class="h3">\s*(\d{2}:\d{2})\s*<\/div>/gi)];
+    if (timeBoxMatches.length >= 6) {
+      const todayMap = {};
+      timeBoxMatches.forEach(m => {
+        const label = m[1].trim().toLocaleLowerCase('tr-TR');
+        const time = m[2].trim();
+        if (label.includes('imsak')) todayMap.Imsak = todayMap.Fajr = time;
+        else if (label.includes('güneş') || label.includes('gunes')) todayMap.Sunrise = time;
+        else if (label.includes('öğle') || label.includes('ogle')) todayMap.Dhuhr = time;
+        else if (label.includes('ikindi')) todayMap.Asr = time;
+        else if (label.includes('akşam') || label.includes('aksam')) todayMap.Sunset = todayMap.Maghrib = time;
+        else if (label.includes('yatsı') || label.includes('yatsi')) todayMap.Isha = time;
+      });
+
+      const today = new Date();
+      const tDay = today.getDate();
+      const tMonth = today.getMonth() + 1;
+      const tKey = `${currentYear}-${tMonth}`;
+      if (!monthlyBuckets[tKey]) monthlyBuckets[tKey] = [];
+
+      const todayEntry = monthlyBuckets[tKey].find(item => parseInt(item.date.gregorian.day, 10) === tDay);
+      if (todayEntry) {
+        todayEntry.timings = { ...todayEntry.timings, ...todayMap };
+      }
+      localStorage.setItem('saatvakit_diyanethaber_today', JSON.stringify(todayMap));
+    }
+
+    // Save all months to cache
+    Object.keys(monthlyBuckets).forEach(key => {
+      monthlyBuckets[key].sort((a, b) => parseInt(a.date.gregorian.day, 10) - parseInt(b.date.gregorian.day, 10));
+      const [y, m] = key.split('-');
+      const cacheKey = this.getCacheKey(city, y, m);
+      localStorage.setItem(cacheKey, JSON.stringify(monthlyBuckets[key]));
+    });
+
+    return monthlyBuckets;
   }
 
   // Directly fetch & parse official 365-day Diyanet Web Page (namazvakitleri.diyanet.gov.tr)
@@ -296,7 +472,18 @@ export class PrayerService {
       }
     }
 
-    // 1. Try Direct Diyanet Official Website (namazvakitleri.diyanet.gov.tr)
+    // 1. ÖNCELİKLİ KAYNAK: Diyanet Haber (diyanethaber.com.tr)
+    try {
+      const haberBuckets = await this.fetchFromDiyanetHaber(city);
+      const targetBucket = haberBuckets[`${year}-${month}`];
+      if (targetBucket && targetBucket.length > 0) {
+        return targetBucket;
+      }
+    } catch (haberErr) {
+      console.log('Diyanet Haber fetch note, trying Diyanet Web fallback:', haberErr.message);
+    }
+
+    // 2. Try Direct Diyanet Official Website (namazvakitleri.diyanet.gov.tr)
     try {
       const diyanetBuckets = await this.fetchFromDiyanetWeb(city);
       const targetBucket = diyanetBuckets[`${year}-${month}`];
@@ -307,7 +494,7 @@ export class PrayerService {
       console.log('Direct Diyanet website fetch note, trying Aladhan/Offline fallback:', diyanetErr.message);
     }
 
-    // 2. Try Aladhan API with Diyanet Method 13
+    // 3. Try Aladhan API with Diyanet Method 13
     try {
       const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${city.lat}&longitude=${city.lng}&method=13`;
       const controller = new AbortController();
@@ -402,14 +589,20 @@ export class PrayerService {
       return match ? match[1] : t.substring(0, 5);
     };
 
+    // If Diyanet Haber Today box is saved in localStorage, prioritize it for today!
+    let dhToday = null;
+    try {
+      dhToday = JSON.parse(localStorage.getItem('saatvakit_diyanethaber_today') || 'null');
+    } catch (e) {}
+
     const timings = todayData.timings;
     return {
-      imsak: cleanTime(timings.Fajr || timings.Imsak),
-      gunes: cleanTime(timings.Sunrise),
-      ogle: cleanTime(timings.Dhuhr),
-      ikindi: cleanTime(timings.Asr),
-      aksam: cleanTime(timings.Maghrib || timings.Sunset),
-      yatsi: cleanTime(timings.Isha),
+      imsak: cleanTime(dhToday?.Imsak || dhToday?.Fajr || timings.Fajr || timings.Imsak),
+      gunes: cleanTime(dhToday?.Sunrise || timings.Sunrise),
+      ogle: cleanTime(dhToday?.Dhuhr || timings.Dhuhr),
+      ikindi: cleanTime(dhToday?.Asr || timings.Asr),
+      aksam: cleanTime(dhToday?.Maghrib || dhToday?.Sunset || timings.Maghrib || timings.Sunset),
+      yatsi: cleanTime(dhToday?.Isha || timings.Isha),
       raw: todayData
     };
   }

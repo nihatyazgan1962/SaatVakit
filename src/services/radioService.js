@@ -5,13 +5,16 @@ export const RADIO_CATEGORIES = [
   { id: 'fav', name: 'Favorilerim', icon: '⭐' },
   { id: 'all', name: 'Tümü', icon: '📻' },
   { id: 'risale', name: 'Risale-i Nur & İlim', icon: '📖' },
-  { id: 'dini', name: 'Dini & İlahi & Kur\'an', icon: '🕌' },
+  { id: 'kuran', name: 'Kur\'an & Kâri Tilavet', icon: '✨' },
+  { id: 'dini', name: 'Dini & İlahi & Sohbet', icon: '🕌' },
   { id: 'haber', name: 'Haber & Gündem', icon: '📰' },
   { id: 'turku', name: 'Türkü & Kültür', icon: '🪕' }
 ];
 
 export const INITIAL_STATIONS = [
+  // ==========================================
   // 1. RİSALE-İ NUR & İLİM YAYINLARI
+  // ==========================================
   {
     id: 'risale_radyo',
     name: 'Risale Radyo',
@@ -40,15 +43,101 @@ export const INITIAL_STATIONS = [
     badge: 'Nurlu Hizmet'
   },
 
-  // 2. DİNİ, İLAHİ & KUR'AN YAYINLARI
+  // ==========================================
+  // 2. KUR'AN-I KERİM & KÂRİ TİLAVETLERİ
+  // ==========================================
   {
     id: 'diyanet_kuran',
     name: 'Diyanet Kur\'an Radyo',
-    category: 'dini',
+    category: 'kuran',
     frequency: '7/24 Kesintisiz Kur\'an-ı Kerim Tilaveti ve Meali',
     streamUrl: 'https://eustr73.mediatriple.net/videoonlylive/mtikoimxnztxlive/broadcast_5e3c14192aa92.smil/playlist.m3u8',
     badge: 'Kur\'an'
   },
+  {
+    id: 'kuran_turkce_meal',
+    name: 'Kur\'an-ı Kerim ve Türkçe Meal',
+    category: 'kuran',
+    frequency: 'Ayet Ayet Kur\'an-ı Kerim ve Anlaşılır Türkçe Meali',
+    streamUrl: 'http://baserorg.duckdns.org:8000/',
+    badge: 'Meal'
+  },
+  {
+    id: 'mp3quran_mix',
+    name: 'Mp3Quran Canlı Hatim',
+    category: 'kuran',
+    frequency: 'Dünyaca Ünlü Hafızlardan 7/24 Kesintisiz Hatim',
+    streamUrl: 'https://qurango.net/radio/mix',
+    badge: 'Hatim'
+  },
+  {
+    id: 'kari_abdulbasit',
+    name: 'Şeyh Abdulbasit Abdussamed',
+    category: 'kuran',
+    frequency: 'Makamlı Eşsiz Aşr-ı Şerifler ve Hatim Tilaveti',
+    streamUrl: 'https://radio.mp3islam.com/listen/abdulbasit/radio.mp3',
+    badge: 'Abdulbasit'
+  },
+  {
+    id: 'kari_mishary',
+    name: 'Şeyh Mishary Rashid Alafasy',
+    category: 'kuran',
+    frequency: 'Huzur Veren Canlı Kur\'an Tilavetleri',
+    streamUrl: 'https://radio.mp3islam.com/listen/mishary/radio.mp3',
+    badge: 'Alafasy'
+  },
+  {
+    id: 'kari_maher',
+    name: 'Şeyh Maher Al Mueaqly',
+    category: 'kuran',
+    frequency: 'Kâbe-i Muazzama İmamından Canlı Kur\'an',
+    streamUrl: 'https://radio.mp3islam.com/listen/maher/radio.mp3',
+    badge: 'Kâbe İmamı'
+  },
+  {
+    id: 'kari_sudais',
+    name: 'Şeyh Abdurrahman es-Sudeys',
+    category: 'kuran',
+    frequency: 'Mescid-i Haram Başimamı Eşsiz Kıraati',
+    streamUrl: 'https://radio.mp3islam.com/listen/sudais/radio.mp3',
+    badge: 'Sudeys'
+  },
+  {
+    id: 'kari_shuraim',
+    name: 'Şeyh Suud eş-Şureym',
+    category: 'kuran',
+    frequency: 'Mescid-i Haram İmamından Duygulu Tilavetler',
+    streamUrl: 'https://radio.mp3islam.com/listen/alshuraim/radio.mp3',
+    badge: 'Şureym'
+  },
+  {
+    id: 'kari_minshawi',
+    name: 'Şeyh Muhammed Sıddık Minşavi',
+    category: 'kuran',
+    frequency: 'Gönülleri Titreten Huşu Dolu Kur\'an Tilaveti',
+    streamUrl: 'https://radio.mp3islam.com/listen/minshawi/radio.mp3',
+    badge: 'Minşavi'
+  },
+  {
+    id: 'kari_hussary',
+    name: 'Şeyh Mahmud Halil El-Husari',
+    category: 'kuran',
+    frequency: 'Tecvidli Tertil Üstadı Kur\'an Yayını',
+    streamUrl: 'https://qurango.net/radio/mahmoud_khalil_alhussary_warsh',
+    badge: 'Husari'
+  },
+  {
+    id: 'mekke_fm',
+    name: 'Mekke FM (Kutsal Topraklar)',
+    category: 'kuran',
+    frequency: 'Mekke-i Mükerreme ve Haremeyn\'den Canlı Yayın',
+    streamUrl: 'https://radyodinle.cansuyufm.com/17175/stream;',
+    badge: 'Mekke'
+  },
+
+  // ==========================================
+  // 3. DİNİ, İLAHİ, SOHBET & TASAVVUF
+  // ==========================================
   {
     id: 'diyanet_radyo',
     name: 'Diyanet Radyo',
@@ -56,6 +145,22 @@ export const INITIAL_STATIONS = [
     frequency: 'Diyanet İşleri Başkanlığı Resmi Radyosu',
     streamUrl: 'https://eustr73.mediatriple.net/videoonlylive/mtikoimxnztxlive/broadcast_5e3c1171d7d2a.smil/playlist.m3u8',
     badge: 'Diyanet'
+  },
+  {
+    id: 'diyanet_risalet',
+    name: 'Diyanet Risalet Radyo',
+    category: 'dini',
+    frequency: 'Peygamber Efendimiz (s.a.v.) ve Hadis-i Şerifler',
+    streamUrl: 'https://eustr73.mediatriple.net/videoonlylive/mtikoimxnztxlive/broadcast_5e3c1520b2626.smil/playlist.m3u8',
+    badge: 'Risalet'
+  },
+  {
+    id: 'lalegul_fm',
+    name: 'Lalegül FM',
+    category: 'dini',
+    frequency: 'Ehl-i Sünnet Sohbetler, İlim ve İrfan',
+    streamUrl: 'https://icecast.netmedya.net/lalegulfm',
+    badge: 'Lalegül'
   },
   {
     id: 'akra_fm',
@@ -93,6 +198,38 @@ export const INITIAL_STATIONS = [
     badge: 'Vav'
   },
   {
+    id: 'bayram_fm',
+    name: 'Bayram FM',
+    category: 'dini',
+    frequency: 'İslami Sohbetler, Ehl-i Sünnet Dersleri ve İlahiler',
+    streamUrl: 'https://sslyayin.netyayin.net/3442/stream/;stream.mp3',
+    badge: 'Bayram FM'
+  },
+  {
+    id: 'gozyasi_fm',
+    name: 'Gözyaşı FM (Konya)',
+    category: 'dini',
+    frequency: 'Gönül Dünyamız, Tasavvuf ve Sevgi Sohbetleri',
+    streamUrl: 'http://yayin1.canliyayin.org:8700/;*.mp3',
+    badge: 'Gözyaşı'
+  },
+  {
+    id: 'ribat_fm',
+    name: 'Ribat FM (Konya)',
+    category: 'dini',
+    frequency: 'İslam ve Hayat, Tefsir ve Aile Sohbetleri',
+    streamUrl: 'http://yayin1.canliyayin.org:7010/;*.mp3',
+    badge: 'Ribat'
+  },
+  {
+    id: 'semerkand_radyo',
+    name: 'Semerkand Radyo',
+    category: 'dini',
+    frequency: 'Gönül Sohbetleri, Tasavvuf ve İlahiler',
+    streamUrl: 'https://canliyayin.semerkandradyo.com.tr/hls/Radyo/playlist.m3u8',
+    badge: 'Semerkand'
+  },
+  {
     id: 'moral_fm',
     name: 'Moral FM',
     category: 'dini',
@@ -105,9 +242,66 @@ export const INITIAL_STATIONS = [
     id: 'gaziantep_davet_radyo',
     name: 'Gaziantep Davet Radyo',
     category: 'dini',
-    frequency: 'İslam Daveti, Sohbet ve İlahi Yayını',
-    streamUrl: 'https://stream.radiojar.com/ggu0fd6qu2wtv.mp3',
-    badge: 'Davet'
+    frequency: 'Gaziantep Davet FM - İslam Daveti, Sohbet & İlahi',
+    streamUrl: 'https://ip169.ozelip.com/8026/stream',
+    fallbackUrls: [
+      'http://ip169.ozelip.com:8026/stream',
+      'https://stream.radiojar.com/ggu0fd6qu2wtv.mp3'
+    ],
+    badge: 'Gaziantep'
+  },
+  {
+    id: 'enderun_fm',
+    name: 'Enderun FM',
+    category: 'dini',
+    frequency: 'Kayseri 88.2 MHz - İlim, Ahlak, İrfan ve Kültür',
+    streamUrl: 'https://yayin2.canliyayin.org:7052/stream',
+    fallbackUrls: [
+      'https://yayin2.canliyayin.org:7052/;',
+      'http://yayin2.canliyayin.org:7052/stream',
+      'http://yayin2.canliyayin.org:7052/;'
+    ],
+    badge: 'Enderun'
+  },
+  {
+    id: 'gul_fm',
+    name: 'Gül FM',
+    category: 'dini',
+    frequency: 'Gül Kokulu Sohbetler ve Seçme İlahiler',
+    streamUrl: 'https://yayin2.canliyayin.org:10989/;*.mp3',
+    badge: 'Gül FM'
+  },
+  {
+    id: 'mirac_fm',
+    name: 'Miraç FM',
+    category: 'dini',
+    frequency: 'Manevi Yolculuk, Cami Kürsüsü Sohbetleri',
+    streamUrl: 'https://anadolu.liderhost.com.tr:9416/stream',
+    badge: 'Miraç'
+  },
+  {
+    id: 'isra_fm',
+    name: 'Konya İsra FM',
+    category: 'dini',
+    frequency: 'İslam Dünyası, Sohbet ve İlahi Yayını',
+    streamUrl: 'https://yayin2.canliyayin.org:8210/;stream',
+    badge: 'İsra FM'
+  },
+  {
+    id: 'ihya_fm',
+    name: 'İhya FM',
+    category: 'dini',
+    frequency: 'Gönülleri İhya Eden Vaaz ve Nasihatler',
+    streamUrl: 'https://radyo.yayin.com.tr:2727/stream',
+    badge: 'İhya'
+  },
+  {
+    id: 'turkuvaz_musiki',
+    name: 'Turkuvaz Musiki & Tasavvuf',
+    category: 'dini',
+    frequency: 'Klasik Türk Musikisi, İlahiler ve Tasavvuf',
+    streamUrl: 'https://trkvz-radyolar.ercdn.net/turkuvazmusiki/playlist.m3u8',
+    badge: 'Tasavvuf'
   },
   {
     id: 'nida_fm',
@@ -116,14 +310,6 @@ export const INITIAL_STATIONS = [
     frequency: 'İlahi, Ezgi ve İslami Kültür Yayını',
     streamUrl: 'https://anadolu.liderhost.com.tr/8106/stream',
     badge: 'Nida'
-  },
-  {
-    id: 'semerkand_radyo',
-    name: 'Semerkand Radyo',
-    category: 'dini',
-    frequency: 'Gönül Sohbetleri, Tasavvuf ve İlahiler',
-    streamUrl: 'https://canliyayin.semerkandradyo.com.tr/hls/Radyo/playlist.m3u8',
-    badge: 'Semerkand'
   },
   {
     id: 'radyo_ilahi',
@@ -141,8 +327,18 @@ export const INITIAL_STATIONS = [
     streamUrl: 'https://anadolu.liderhost.com.tr/9006/stream',
     badge: 'Nebi'
   },
+  {
+    id: 'radyo_fitrat',
+    name: 'Radyo Fıtrat',
+    category: 'dini',
+    frequency: 'Fıtrata Uygun Yaşam, Aile ve Ahlak Sohbetleri',
+    streamUrl: 'http://radyofitrat.radyotvonline.net/',
+    badge: 'Fıtrat'
+  },
 
-  // 3. HABER & GÜNDEM
+  // ==========================================
+  // 4. HABER & GÜNDEM
+  // ==========================================
   {
     id: 'trt_radyo1',
     name: 'TRT Radyo 1',
@@ -158,7 +354,16 @@ export const INITIAL_STATIONS = [
     category: 'haber',
     frequency: 'Son Dakika Haberleri ve Güncel Bültenler',
     streamUrl: 'https://trt.radyotvonline.net/trthaber',
+    fallbackUrls: ['https://radio-trtradyohaber.live.trt.com.tr/master.m3u8'],
     badge: 'TRT Haber'
+  },
+  {
+    id: 'haberturk_radyo',
+    name: 'Habertürk Radyo',
+    category: 'haber',
+    frequency: 'Doğru ve Tarafsız Haber, Canlı Yayın',
+    streamUrl: 'https://haberturkradyo.radyotvonline.net/haberturkradyo',
+    badge: 'Habertürk'
   },
   {
     id: 'ahaber_radyo',
@@ -169,6 +374,30 @@ export const INITIAL_STATIONS = [
     badge: 'A Haber'
   },
   {
+    id: 'tgrt_fm',
+    name: 'TGRT FM',
+    category: 'haber',
+    frequency: 'Haber, Sohbet, Tiyatro ve Kültür',
+    streamUrl: 'https://icecasttgrt.ihlasdigitalassets.com/tgrtfm',
+    badge: 'TGRT'
+  },
+  {
+    id: 'aspor_radyo',
+    name: 'A Spor Radyo',
+    category: 'haber',
+    frequency: 'Spor Gündemi, Maç Anlatımları ve Yorumlar',
+    streamUrl: 'https://trkvz-radyolar.ercdn.net/asporradyo/playlist.m3u8',
+    badge: 'A Spor'
+  },
+  {
+    id: 'apara_radyo',
+    name: 'A Para Radyo',
+    category: 'haber',
+    frequency: 'Ekonomi, Finans ve Piyasa Haberleri',
+    streamUrl: 'https://trkvz-radyolar.ercdn.net/apararadyo/playlist.m3u8',
+    badge: 'A Para'
+  },
+  {
     id: 'ulke_radyo',
     name: 'Ülke Radyo',
     category: 'haber',
@@ -177,7 +406,9 @@ export const INITIAL_STATIONS = [
     badge: 'Ülke'
   },
 
-  // 4. TÜRKÜ & KÜLTÜR
+  // ==========================================
+  // 5. TÜRKÜ & KÜLTÜR
+  // ==========================================
   {
     id: 'trt_turku',
     name: 'TRT Türkü',
@@ -188,12 +419,68 @@ export const INITIAL_STATIONS = [
     badge: 'TRT Türkü'
   },
   {
+    id: 'trt_nagme',
+    name: 'TRT Nağme',
+    category: 'turku',
+    frequency: 'Klasik Türk Musikisi & Tasavvuf Eserleri',
+    streamUrl: 'https://rd-trtnagme.medya.trt.com.tr/master_128.m3u8',
+    badge: 'TRT Nağme'
+  },
+  {
+    id: 'trt_fm',
+    name: 'TRT FM',
+    category: 'turku',
+    frequency: 'Türkiye\'nin En Çok Dinlenen Kültür ve Müzik Radyosu',
+    streamUrl: 'https://trt.radyotvonline.net/trtfm',
+    badge: 'TRT FM'
+  },
+  {
     id: 'turkuvaz_anadolu',
     name: 'Turkuvaz Anadolu Türkü',
     category: 'turku',
     frequency: 'Türkülerin Sesi, Anadolu Nağmeleri',
     streamUrl: 'https://trkvz-radyolar.ercdn.net/turkuvazanadolu/playlist.m3u8',
     badge: 'Anadolu'
+  },
+  {
+    id: 'radyo_seymen',
+    name: 'Radyo Seymen',
+    category: 'turku',
+    frequency: 'Türküler, Oyun Havaları ve Yöresel Ezgiler',
+    streamUrl: 'https://yayin.radyoseymen.com.tr:1070/stream',
+    badge: 'Seymen'
+  },
+  {
+    id: 'radyo_ekin',
+    name: 'Radyo Ekin',
+    category: 'turku',
+    frequency: 'Halk Müziği, Özgün Müzik ve Deyişler',
+    streamUrl: 'https://yayin.turkhosted.com/6006/stream',
+    badge: 'Ekin'
+  },
+  {
+    id: 'turkulerle_turkiye',
+    name: 'Türkülerle Türkiye',
+    category: 'turku',
+    frequency: 'Anadolu\'nun Dört Bir Yanından Türküler',
+    streamUrl: 'http://37.247.98.8/stream/22/;',
+    badge: 'Türkü TR'
+  },
+  {
+    id: 'turku_radyo',
+    name: 'Türkü Radyo',
+    category: 'turku',
+    frequency: '7/24 Kesintisiz Türk Halk Müziği',
+    streamUrl: 'https://yayin.turkhosted.com/4591/stream',
+    badge: 'Türkü'
+  },
+  {
+    id: 'radyo_turkuvaz',
+    name: 'Radyo Turkuvaz',
+    category: 'turku',
+    frequency: 'Popüler Türkçe Şarkılar ve Kültür',
+    streamUrl: 'https://trkvz-radyolar.ercdn.net/radyoturkuvaz/playlist.m3u8',
+    badge: 'Turkuvaz'
   }
 ];
 
