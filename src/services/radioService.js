@@ -167,8 +167,11 @@ export const INITIAL_STATIONS = [
     name: 'Akra FM',
     category: 'dini',
     frequency: 'Ahlak, Kültür ve İrfan Dünyamızın Sesi',
-    streamUrl: 'https://d3r5bwwuab2v60.cloudfront.net/akracanli2/_definst_/livestream_aac/playlist.m3u8',
-    fallbackUrls: ['http://37.247.100.100:80/akra/live/playlist.m3u8'],
+    streamUrl: 'https://cdn3.akradyo.net/akracanli2/_definst_/livestream_aac/playlist.m3u8',
+    fallbackUrls: [
+      'https://d3r5bwwuab2v60.cloudfront.net/akracanli2/_definst_/livestream_aac/playlist.m3u8',
+      'http://cdn3.akradyo.net/akracanli2/_definst_/livestream_aac/playlist.m3u8'
+    ],
     badge: 'Akra'
   },
   {
@@ -176,8 +179,11 @@ export const INITIAL_STATIONS = [
     name: 'Dost FM',
     category: 'dini',
     frequency: 'Kur\'an, Sünnet ve Gönül Sohbetleri',
-    streamUrl: 'http://yayin.dostfm.com:8920/;.mp3?no_dl',
-    fallbackUrls: ['https://api-tv5.yayin.com.tr:8002/mp3'],
+    streamUrl: 'https://dost.stream.emsal.im/fm/5',
+    fallbackUrls: [
+      'http://yayin.dostfm.com:8920/stream',
+      'http://yayin.dostfm.com:8920/;'
+    ],
     badge: 'Dost FM'
   },
   {
@@ -210,7 +216,11 @@ export const INITIAL_STATIONS = [
     name: 'Gözyaşı FM (Konya)',
     category: 'dini',
     frequency: 'Gönül Dünyamız, Tasavvuf ve Sevgi Sohbetleri',
-    streamUrl: 'http://yayin1.canliyayin.org:8700/;*.mp3',
+    streamUrl: 'https://yayin2.canliyayin.org:8700/;*.mp3',
+    fallbackUrls: [
+      'https://yayin2.canliyayin.org:8700/stream',
+      'http://yayin2.canliyayin.org:8700/;*.mp3'
+    ],
     badge: 'Gözyaşı'
   },
   {
@@ -218,7 +228,11 @@ export const INITIAL_STATIONS = [
     name: 'Ribat FM (Konya)',
     category: 'dini',
     frequency: 'İslam ve Hayat, Tefsir ve Aile Sohbetleri',
-    streamUrl: 'http://yayin1.canliyayin.org:7010/;*.mp3',
+    streamUrl: 'https://yayin2.canliyayin.org:7010/;*.mp3',
+    fallbackUrls: [
+      'https://yayin2.canliyayin.org:7010/stream',
+      'http://yayin2.canliyayin.org:7010/;*.mp3'
+    ],
     badge: 'Ribat'
   },
   {
@@ -234,8 +248,12 @@ export const INITIAL_STATIONS = [
     name: 'Moral FM',
     category: 'dini',
     frequency: 'Türkiye\'nin İlk Özel Tematik Manevi Radyosu',
-    streamUrl: 'https://api-tv5.yayin.com.tr:8002/mp3',
-    fallbackUrls: ['http://yayin2.canliyayin.org:8886/;stream.mp3'],
+    streamUrl: 'https://stream.zeno.fm/0cfiqwdkobavv',
+    fallbackUrls: [
+      'https://stream-51.zeno.fm/0cfiqwdkobavv?zs=RptTdDEHQ2Wej62cArILjQ',
+      'https://stream-157.zeno.fm/0cfiqwdkobavv',
+      'http://stream.zeno.fm/0cfiqwdkobavv'
+    ],
     badge: 'Moral'
   },
   {
@@ -309,6 +327,10 @@ export const INITIAL_STATIONS = [
     category: 'dini',
     frequency: 'İlahi, Ezgi ve İslami Kültür Yayını',
     streamUrl: 'https://anadolu.liderhost.com.tr/8106/stream',
+    fallbackUrls: [
+      'https://anadolu.liderhost.com.tr:8106/stream',
+      'https://anadolu.liderhost.com.tr:8106/;'
+    ],
     badge: 'Nida'
   },
   {
@@ -490,14 +512,19 @@ class RadioService {
     this.favorites = new Set(JSON.parse(localStorage.getItem('saatvakit_radio_favorites') || '["risale_radyo", "diyanet_kuran", "diyanet_radyo", "akra_fm", "dost_fm", "vav_radyo"]'));
     this.stations = [...INITIAL_STATIONS, ...this.customStations];
 
-    this.currentStationIndex = parseInt(localStorage.getItem('saatvakit_radio_index') || '0', 10);
-    if (this.currentStationIndex < 0 || this.currentStationIndex >= this.stations.length) {
-      this.currentStationIndex = 0;
+    const savedStationId = localStorage.getItem('saatvakit_radio_station_id');
+    if (savedStationId) {
+      const foundIdx = this.stations.findIndex(s => s.id === savedStationId);
+      this.currentStationIndex = foundIdx !== -1 ? foundIdx : 0;
+    } else {
+      this.currentStationIndex = parseInt(localStorage.getItem('saatvakit_radio_index') || '0', 10);
+      if (this.currentStationIndex < 0 || this.currentStationIndex >= this.stations.length) {
+        this.currentStationIndex = 0;
+      }
     }
 
     this.audio = new Audio();
     this.audio.preload = 'none';
-    this.audio.crossOrigin = 'anonymous';
     this.volume = parseFloat(localStorage.getItem('saatvakit_radio_volume') || '0.9');
     this.audio.volume = this.volume;
 
@@ -743,6 +770,7 @@ class RadioService {
         }
       });
     } else {
+      this.audio.removeAttribute('crossorigin');
       this.audio.src = url;
       this.audio.load();
       if (this.isPlaying) {
@@ -859,6 +887,7 @@ class RadioService {
     if (index !== -1) {
       this.currentStationIndex = index;
       localStorage.setItem('saatvakit_radio_index', index.toString());
+      localStorage.setItem('saatvakit_radio_station_id', stationId);
       this.retryCount = 0;
       this.currentError = null;
 

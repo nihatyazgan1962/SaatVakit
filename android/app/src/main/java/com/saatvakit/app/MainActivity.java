@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.speech.tts.TextToSpeech;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.webkit.WebSettings;
 import com.getcapacitor.BridgeActivity;
 import java.util.Locale;
 
@@ -52,9 +53,13 @@ public class MainActivity extends BridgeActivity {
             }
         });
 
-        // Inject Native Bridge to WebView
+        // Inject Native Bridge to WebView & allow Mixed Content for radio streaming
         WebView webView = getBridge().getWebView();
         if (webView != null) {
+            WebSettings settings = webView.getSettings();
+            if (settings != null) {
+                settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            }
             webView.addJavascriptInterface(new Object() {
                 @JavascriptInterface
                 public void speakText(String text) {
